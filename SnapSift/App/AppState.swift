@@ -16,6 +16,11 @@ class AppState {
     var currentView: AppView = .home
     var permissionStatus: PHAuthorizationStatus = .notDetermined
     
+    // Active filter, modified by DateFilterView
+    var activeFilter: PhotoFilter? = nil
+    
+    var oldestPhotoDate: Date? = .distantPast
+    
     init() {
         PhotoLibraryManager.shared.onLibraryChanged = {
             self.refreshPhotos()
@@ -41,7 +46,7 @@ class AppState {
     }
     
     func refreshPhotos() {
-        PhotoLibraryManager.shared.fetchPhotos { result in
+        PhotoLibraryManager.shared.fetchPhotos(activeFilter: activeFilter) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let photos):
@@ -51,6 +56,8 @@ class AppState {
                 }
             }
         }
+        oldestPhotoDate = PhotoLibraryManager.shared.getOldestPhotoDate()
+        clearSelection()
     }
     
     // User actions

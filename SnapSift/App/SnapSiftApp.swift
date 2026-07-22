@@ -16,6 +16,7 @@ struct SnapSiftApp: App {
         WindowGroup {
             ContentView()
                 .environment(appState)
+                .preferredColorScheme(.light)
         }
     }
 }

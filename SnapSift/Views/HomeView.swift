@@ -17,12 +17,10 @@ struct HomeView: View {
             TitleCard()
 
             Text("""
-                 A fun way to clear your clutter!
+                 Sift Away your Photo clutter!
                  
-                 Swipe Left to mark a photo for deletion.
-                 Swipe Right to skip a photo.
-                 
-                 Made by Giovanni Q
+                 Swipe Left to Sift 
+                 Swipe Right to Skip
                  """)
                 .multilineTextAlignment(.center)
                 .padding()

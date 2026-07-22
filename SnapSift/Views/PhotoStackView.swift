@@ -15,6 +15,7 @@ struct PhotoStackView: View {
     @State private var currentIndex: Int = 0
     @State private var dragOffset: CGFloat = 0
     @State private var isLoading = false
+    @State private var showingDateFilter = false
 
     var body: some View {
         VStack {
@@ -37,14 +38,19 @@ struct PhotoStackView: View {
             
             // 'Finish' action button always visible
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(AppColors.spearMint.color)
-        .onAppear {
-            appState.refreshPhotos()
+        // Additional UI elements
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    showingDateFilter = true
+                } label: {
+                    Image(systemName: "calendar")
+                }
+            }
+            
         }
-        .onChange(of: appState.photos) {
-            currentIndex = 0
-            dragOffset = 0
+        .sheet(isPresented: $showingDateFilter) {
+            DateFilterView().presentationDetents([.medium])
         }
         .safeAreaInset(edge:.bottom){
             Button(action: finishSelection) {
@@ -59,6 +65,17 @@ struct PhotoStackView: View {
             .disabled(appState.selectedPhotos.isEmpty) // can't finish if none are selected
             .padding()
         }
+        // Logic
+        .onAppear {
+            appState.refreshPhotos()
+        }
+        .onChange(of: appState.photos) {
+            currentIndex = 0
+            dragOffset = 0
+        }
+        // Style
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(AppColors.spearMint.color)
 
     }
 

@@ -7,6 +7,7 @@
 
 import Foundation
 import PhotosUI
+import SwiftUI
 import UIKit
 
 class PhotoLibraryManager: NSObject, PHPhotoLibraryChangeObserver {
@@ -19,20 +20,32 @@ class PhotoLibraryManager: NSObject, PHPhotoLibraryChangeObserver {
     }
 
     func photoLibraryDidChange(_ changeInstance: PHChange) {
-        DispatchQueue.main.async {
+        Task {
             self.onLibraryChanged?()
         }
     }
     
     static let shared = PhotoLibraryManager()
+    
+    func getOldestPhotoDate() -> Date? {
+        let options = PHFetchOptions()
+        options.sortDescriptors = [
+            NSSortDescriptor(key: "creationDate", ascending: true)
+        ]
+        options.fetchLimit = 1
 
-    func fetchPhotos(completion: @escaping (Result<[Photo], Error>) -> Void) {
+        return PHAsset.fetchAssets(with: .image, options: options)
+            .firstObject?
+            .creationDate
+    }
+
+    func fetchPhotos(activeFilter: PhotoFilter?, completion: @escaping (Result<[Photo], Error>) -> Void) {
         // Check authorization status first
         let status = PHPhotoLibrary.authorizationStatus()
 
         switch status {
         case .authorized, .limited:
-            fetchAuthorizedPhotos(completion: completion)
+            fetchAuthorizedPhotos(activeFilter: activeFilter, completion: completion)
         case .denied, .restricted:
             completion(.failure(PhotoLibraryError.permissionDenied))
         default:
@@ -41,7 +54,7 @@ class PhotoLibraryManager: NSObject, PHPhotoLibraryChangeObserver {
                 DispatchQueue.main.async {
                     switch newStatus {
                     case .authorized, .limited:
-                        self.fetchAuthorizedPhotos(completion: completion)
+                        self.fetchAuthorizedPhotos(activeFilter: activeFilter,completion: completion)
                     default:
                         completion(.failure(PhotoLibraryError.permissionDenied))
                     }
@@ -75,10 +88,32 @@ class PhotoLibraryManager: NSObject, PHPhotoLibraryChangeObserver {
         }
     }
 
-    private func fetchAuthorizedPhotos(completion: @escaping (Result<[Photo], Error>) -> Void) {
+    private func fetchAuthorizedPhotos(activeFilter: PhotoFilter?, completion: @escaping (Result<[Photo], Error>) -> Void) {
         // Create fetch request for photos
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        
+        if let activeFilter{
+        
+            if let start = activeFilter.startDate, let end = activeFilter.endDate {
+                fetchOptions.predicate = NSPredicate(
+                    format: "creationDate >= %@ AND creationDate <= %@",
+                    start as NSDate,
+                    end as NSDate
+                )
+            } else if let start = activeFilter.startDate {
+                fetchOptions.predicate = NSPredicate(
+                    format: "creationDate >= %@",
+                    start as NSDate
+                )
+            } else if let end = activeFilter.endDate {
+                fetchOptions.predicate = NSPredicate(
+                    format: "creationDate <= %@",
+                    end as NSDate
+                )
+            }
+        }
+        
 
         let fetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
 
