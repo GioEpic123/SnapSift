@@ -15,12 +15,12 @@ class AppState {
     var selectedPhotos: [Photo] = [] // user 'selected' marked for deletion
     var currentView: AppView = .home
     var permissionStatus: PHAuthorizationStatus = .notDetermined
-    
+
     // Active filter, modified by DateFilterView
     var activeFilter: PhotoFilter? = nil
-    
+
     var oldestPhotoDate: Date? = .distantPast
-    
+
     init() {
         PhotoLibraryManager.shared.onLibraryChanged = {
             self.refreshPhotos()
@@ -34,7 +34,7 @@ class AppState {
         case success(count: Int)
         case home
     }
-    
+
     func navigate(_ newView: AppView){
         currentView = newView
     }
@@ -44,7 +44,7 @@ class AppState {
         selectedPhotos.removeAll()
         currentView = .home
     }
-    
+
     func refreshPhotos() {
         PhotoLibraryManager.shared.fetchPhotos(activeFilter: activeFilter) { result in
             DispatchQueue.main.async {
@@ -59,13 +59,13 @@ class AppState {
         oldestPhotoDate = PhotoLibraryManager.shared.getOldestPhotoDate()
         clearSelection()
     }
-    
+
     // User actions
 
     func selectPhoto(_ photo: Photo) {
         selectedPhotos.append(photo)
     }
-    
+
     func clearSelectedPhoto(_ photo: Photo) {
         selectedPhotos.removeAll { $0.id == photo.id }
     }
@@ -73,7 +73,7 @@ class AppState {
     func clearSelection() {
         selectedPhotos.removeAll()
     }
-    
+
     func deleteSelectedPhotos() async throws -> Int {
         let count = selectedPhotos.count
 
@@ -87,13 +87,13 @@ class AppState {
         clearSelection()
         return count
     }
-    
+
     // Permissions
-        
+
     func syncPermissionStatus() {
         permissionStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
     }
-    
+
     func syncPermissionsThenNavigate() {
         syncPermissionStatus()
         if permissionStatus == .authorized || permissionStatus == .limited {
@@ -102,7 +102,7 @@ class AppState {
             navigate(.permission)
         }
     }
-    
+
     func requestPermission() {
         PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
             DispatchQueue.main.async {
@@ -114,11 +114,16 @@ class AppState {
             }
         }
     }
-    
+
+    // Navigation methods
+    func navigateToPrivacySettings() {
+        // This will be handled by the view that presents privacy settings
+        // We can add logic here to handle specific privacy-related navigation if needed
+    }
+
     // Ads
-    
-    // TODO: On app launch, see if user has payed for preem
-    enum UserAdTyoe {
+
+    enum UserAdType {
         case undefined
         case free
         case premium

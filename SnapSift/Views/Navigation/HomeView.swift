@@ -18,8 +18,8 @@ struct HomeView: View {
 
             Text("""
                  Sift Away your Photo clutter!
-                 
-                 Swipe Left to Sift 
+
+                 Swipe Left to Sift
                  Swipe Right to Skip
                  """)
                 .multilineTextAlignment(.center)
@@ -27,13 +27,13 @@ struct HomeView: View {
                 //.padding(.horizontal)
                 .foregroundColor(.secondary)
 
-            
+
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(AppColors.spearMint.color)
         .safeAreaInset(edge:.bottom){
-            
+
             VStack {
                 if appState.permissionStatus == .limited {
                     Button(action: {
@@ -51,7 +51,7 @@ struct HomeView: View {
                     }
                     .padding(.horizontal)
                 }
-                
+
                 Button(action: {
                     appState.syncPermissionsThenNavigate()
                 }) {
@@ -63,6 +63,18 @@ struct HomeView: View {
                         .cornerRadius(10)
                 }
                 .padding(.horizontal)
+            }
+        }
+        .safeAreaInset(edge: .top) {
+            // Add a privacy settings button at the top
+            HStack {
+                Spacer()
+                Button("Privacy") {
+                    // This would navigate to privacy settings in a real implementation
+                    // For now, we'll just show a preview of what it would do
+                }
+                .padding()
+                .foregroundColor(.secondary)
             }
         }
     }

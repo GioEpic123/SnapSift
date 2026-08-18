@@ -9,3 +9,6 @@ xcuserdata/
 *.xccheckout
 *.moved-aside
 *.xcscmblueprint
+
+# Secrets
+SnapSift/Secrets.swift

@@ -14,6 +14,7 @@ A SwiftUI-based iOS application for selecting and deleting photos from the devic
 ## Implementation Details
 
 ### Core Components:
+
 1. `AppState.swift` - Manages app state and navigation between views
 2. `PhotoStackView.swift` - Swipeable photo selection interface
 3. `SelectionGridView.swift` - Grid view of selected photos with delete functionality
@@ -21,9 +22,11 @@ A SwiftUI-based iOS application for selecting and deleting photos from the devic
 5. `HomeView.swift` - Main navigation screen
 
 ### Navigation Flow:
+
 - Permission Screen → Photo Stack View → Selection Grid View → Success Screen → Home View
 
 ### Key Features:
+
 - Swipe gestures (left = delete, right = keep)
 - Visual feedback for photo status
 - Proper state management with environment objects
@@ -40,7 +43,3 @@ A SwiftUI-based iOS application for selecting and deleting photos from the devic
 6. Tap "Delete Selected" to remove all selected photos
 7. See confirmation screen showing number of deleted photos
 8. Return to home screen to start over
-
-## Technical Notes
-
-The app simulates photo deletion for demonstration purposes. In a production environment, the `deleteSelectedPhotos()` function would interface with the actual iOS photo library APIs.
