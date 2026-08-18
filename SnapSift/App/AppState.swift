@@ -114,4 +114,13 @@ class AppState {
             }
         }
     }
+    
+    // Ads
+    
+    // TODO: On app launch, see if user has payed for preem
+    enum UserAdTyoe {
+        case undefined
+        case free
+        case premium
+    }
 }

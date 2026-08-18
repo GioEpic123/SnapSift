@@ -36,9 +36,8 @@ struct PhotoStackView: View {
                 }
             }
             
-            // 'Finish' action button always visible
         }
-        // Additional UI elements
+        // Date picker, 'Finish' button
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
@@ -100,7 +99,7 @@ struct PhotoStackView: View {
         }
     }
     
-    // For peeking
+    // Next image to be sorted, shown behind for peeking
     private func nextPhotoStackView() -> some View {
         ZStack {
             if currentIndex < appState.photos.count - 1{
@@ -137,13 +136,13 @@ struct PhotoStackView: View {
                 .font(.largeTitle)
                 .fontWeight(.bold)
 
+            // TODO: Make below more dynamic
+            
             Text("""
-                    That's all the pics we have access to! 😁
+                    You've sorted through your selection! 😁
                 
-                    If you selected any for deletion, 
-                hit 'Finish' to finalize your choices!
+                    Hit 'Finish' to finalize your choices!
                     
-                    ...or hit 'Start Over' to clear you selection!
                 """)
                 .multilineTextAlignment(.center)
 //                .padding(.horizontal)
@@ -170,11 +169,11 @@ struct PhotoStackView: View {
     private func handleSwipe(_ value: DragGesture.Value) {
         // Determine swipe direction
         if value.translation.width > 100 {
-            // Swipe right - keep photo (untouched)
+            // Swipe right - skip photo
             keepCurrentPhoto()
             advancePhotoStackAfterDelay()
         } else if value.translation.width < -100 {
-            // Swipe left - delete photo (select for deletion)
+            // Swipe left - sift photo (select for deletion)
             markPhotoForDeletion()
             advancePhotoStackAfterDelay()
         } else {
