@@ -12,19 +12,23 @@ struct ContentView: View {
     private var appState: AppState
 
     var body: some View {
-        NavigationStack{
-            switch appState.currentView {
-            case .home:
-                HomeView()
-            case .permission:
-                PermissionView()
-            case .photoStack:
-                PhotoStackView()
-            case .selectionGrid:
-                SelectionGridView()
-            case .success(let count):
-                SuccessScreen(count: count)
+        VStack(spacing: 0) {
+            NavigationStack {
+                switch appState.currentView {
+                case .home:
+                    HomeView()
+                case .permission:
+                    PermissionView()
+                case .photoStack:
+                    PhotoStackView()
+                case .selectionGrid:
+                    SelectionGridView()
+                case .success(let count):
+                    SuccessScreen(count: count)
+                }
             }
+
+            AdBanner(adUnitID: Secrets.testAdUnitID)
         }
     }
 }

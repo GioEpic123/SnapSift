@@ -1,55 +1,49 @@
-//
-//  AdBanner.swift
-//  SnapSift
-//
-//  Created by Giovanni Quevedo on 6/29/26.
-//
-
 import SwiftUI
 import GoogleMobileAds
 
-struct AdBanner: UIViewRepresentable {
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+struct AdBanner: View {
+    let adUnitID: String
 
-    func makeUIView(context: Context) -> GADBannerView {
-        let bannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        bannerView.adUnitID = Secrets.testAdUnitID
-        bannerView.rootViewController = UIApplication.shared.windows.first?.rootViewController
-
-        // For development, use test device identifier
-        bannerView.delegate = context.coordinator
-
-        return bannerView
+    var body: some View {
+        GeometryReader { geometry in
+            BannerViewRepresentable(
+                adUnitID: adUnitID,
+                width: geometry.size.width
+            )
+        }
+        .frame(height: 50)
     }
+}
 
-    func updateUIView(_ uiView: GADBannerView, context: Context) {
-        // Update the banner view with a test request for development
-        let request = GADRequest()
+private struct BannerViewRepresentable: UIViewRepresentable {
+    let adUnitID: String
+    let width: CGFloat
 
-        // For development, use test device identifiers
-        request.testDevices = [kGADSimulatorID]
+    func makeUIView(context: Context) -> BannerView {
+        let banner = BannerView(
+            adSize: currentOrientationAnchoredAdaptiveBanner(
+                width: width
+            )
+        )
 
-        uiView.load(request)
-    }
+        banner.adUnitID = adUnitID
 
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-
-    class Coordinator: NSObject, GADBannerViewDelegate {
-        let parent: AdBanner
-
-        init(_ parent: AdBanner) {
-            self.parent = parent
+        if let windowScene = UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .first,
+           let rootViewController = windowScene.windows
+            .first(where: { $0.isKeyWindow })?
+            .rootViewController {
+            banner.rootViewController = rootViewController
         }
 
-        // Banner view delegate methods can be added here if needed
-        func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
-            // Handle ad received
-        }
+        banner.load(Request())
 
-        func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
-            // Handle ad failure
-        }
+        return banner
     }
+
+    func updateUIView(
+        _ uiView: BannerView,
+        context: Context
+    ) {}
 }

@@ -1,69 +1,38 @@
-//
-//  PrivacySettingsView.swift
-//  SnapSift
-//
-//  Created by Giovanni Quevedo on 6/29/26.
-//
-
 import SwiftUI
-import GoogleUserMessagingPlatform
+import UserMessagingPlatform
 
 struct PrivacySettingsView: View {
-    @Environment(\.presentationMode) var presentationMode
-
     var body: some View {
-        NavigationView {
+        NavigationStack {
             Form {
-                Section(header: Text("Privacy Settings")) {
-                    NavigationLink(destination: AdPreferencesView()) {
-                        Text("Ad Preferences")
-                    }
-
-                    // Add privacy options row if required
-                    if shouldShowPrivacyOptions() {
-                        Button(action: {
+                Section("Privacy Settings") {
+                    if ConsentInformation.shared.privacyOptionsRequirementStatus == .required {
+                        Button("Privacy Choices") {
                             showPrivacyOptions()
-                        }) {
-                            Text("Privacy Choices")
-                                .foregroundColor(.blue)
                         }
                     }
                 }
 
-                Section(header: Text("About")) {
+                Section("About") {
                     Text("SnapSift - Organize your photo library")
                     Text("Version 1.0")
                 }
             }
-            .navigationBarTitle("Privacy", displayMode: .large)
+            .navigationTitle("Privacy")
         }
     }
 
-    /// Check if privacy options are required based on UMP status
-    private func shouldShowPrivacyOptions() -> Bool {
-        return GADUSConsentInformation.shared.privacyOptionsRequirementStatus == .required
-    }
-
-    /// Present Google's privacy options form
     private func showPrivacyOptions() {
-        // Create a presentation controller to present the form from
-        let rootViewController = UIApplication.shared.windows.first?.rootViewController
-
-        // Present the privacy options form
-        GADUSConsentForm.presentPrivacyOptionsForm(
-            from: rootViewController,
-            completionHandler: { error in
-                if let error = error {
-                    print("Error presenting privacy options form: \(error)")
-                }
-                // Form closed, no action needed
+        Task {
+            do {
+                try await ConsentForm.presentPrivacyOptionsForm(from: nil)
+            } catch {
+                print("Error presenting privacy options: \(error)")
             }
-        )
+        }
     }
 }
 
-struct PrivacySettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        PrivacySettingsView()
-    }
+#Preview {
+    PrivacySettingsView()
 }
