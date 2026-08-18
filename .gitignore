@@ -10,5 +10,7 @@ xcuserdata/
 *.moved-aside
 *.xcscmblueprint
 
+SnapSift.xcodeproj
+
 # Secrets
 SnapSift/Secrets.swift

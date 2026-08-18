@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		6148CBFA3034CDD200EA6DF8 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 6148CBF93034CDD200EA6DF8 /* GoogleMobileAds */; };
+		6148CBFD3034CE2500EA6DF8 /* GoogleUserMessagingPlatform in Frameworks */ = {isa = PBXBuildFile; productRef = 6148CBFC3034CE2500EA6DF8 /* GoogleUserMessagingPlatform */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		61A2EBE72FF33667006717F1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -29,9 +34,22 @@
 		61A2EBF02FF33667006717F1 /* SnapSiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnapSiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		6148CBF53034C7B200EA6DF8 /* Exceptions for "SnapSift" folder in "SnapSift" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 61A2EBD62FF33666006717F1 /* SnapSift */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		61A2EBD92FF33666006717F1 /* SnapSift */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				6148CBF53034C7B200EA6DF8 /* Exceptions for "SnapSift" folder in "SnapSift" target */,
+			);
 			path = SnapSift;
 			sourceTree = "<group>";
 		};
@@ -52,6 +70,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6148CBFD3034CE2500EA6DF8 /* GoogleUserMessagingPlatform in Frameworks */,
+				6148CBFA3034CDD200EA6DF8 /* GoogleMobileAds in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +132,8 @@
 			);
 			name = SnapSift;
 			packageProductDependencies = (
+				6148CBF93034CDD200EA6DF8 /* GoogleMobileAds */,
+				6148CBFC3034CE2500EA6DF8 /* GoogleUserMessagingPlatform */,
 			);
 			productName = SnapSift;
 			productReference = 61A2EBD72FF33666006717F1 /* SnapSift.app */;
@@ -195,6 +217,10 @@
 			);
 			mainGroup = 61A2EBCE2FF33666006717F1;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				6148CBF83034CDD200EA6DF8 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+				6148CBFB3034CE2500EA6DF8 /* XCRemoteSwiftPackageReference "swift-package-manager-google-user-messaging-platform" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 61A2EBD82FF33666006717F1 /* Products */;
 			projectDirPath = "";
@@ -400,6 +426,7 @@
 				DEVELOPMENT_TEAM = Z2853FKBXR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SnapSift/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "SnapSift needs access to your photo library so you can organize your photos.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -438,6 +465,7 @@
 				DEVELOPMENT_TEAM = Z2853FKBXR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SnapSift/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "SnapSift needs access to your photo library so you can organize your photos.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -590,6 +618,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6148CBF83034CDD200EA6DF8 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 13.8.0;
+			};
+		};
+		6148CBFB3034CE2500EA6DF8 /* XCRemoteSwiftPackageReference "swift-package-manager-google-user-messaging-platform" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-user-messaging-platform.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6148CBF93034CDD200EA6DF8 /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6148CBF83034CDD200EA6DF8 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
+		};
+		6148CBFC3034CE2500EA6DF8 /* GoogleUserMessagingPlatform */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6148CBFB3034CE2500EA6DF8 /* XCRemoteSwiftPackageReference "swift-package-manager-google-user-messaging-platform" */;
+			productName = GoogleUserMessagingPlatform;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 61A2EBCF2FF33666006717F1 /* Project object */;
 }
