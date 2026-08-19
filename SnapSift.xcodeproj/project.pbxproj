@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6148CBFA3034CDD200EA6DF8 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 6148CBF93034CDD200EA6DF8 /* GoogleMobileAds */; };
 		6148CBFD3034CE2500EA6DF8 /* GoogleUserMessagingPlatform in Frameworks */ = {isa = PBXBuildFile; productRef = 6148CBFC3034CE2500EA6DF8 /* GoogleUserMessagingPlatform */; };
+		6148CC003035301900EA6DF8 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6148CBFF3035301900EA6DF8 /* PhotosUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6148CBFF3035301900EA6DF8 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
 		61A2EBD72FF33666006717F1 /* SnapSift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnapSift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61A2EBE62FF33667006717F1 /* SnapSiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnapSiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		61A2EBF02FF33667006717F1 /* SnapSiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnapSiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,6 +74,7 @@
 			files = (
 				6148CBFD3034CE2500EA6DF8 /* GoogleUserMessagingPlatform in Frameworks */,
 				6148CBFA3034CDD200EA6DF8 /* GoogleMobileAds in Frameworks */,
+				6148CC003035301900EA6DF8 /* PhotosUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,12 +95,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6148CBFE3035300F00EA6DF8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6148CBFF3035301900EA6DF8 /* PhotosUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		61A2EBCE2FF33666006717F1 = {
 			isa = PBXGroup;
 			children = (
 				61A2EBD92FF33666006717F1 /* SnapSift */,
 				61A2EBE92FF33667006717F1 /* SnapSiftTests */,
 				61A2EBF32FF33667006717F1 /* SnapSiftUITests */,
+				6148CBFE3035300F00EA6DF8 /* Frameworks */,
 				61A2EBD82FF33666006717F1 /* Products */,
 			);
 			sourceTree = "<group>";

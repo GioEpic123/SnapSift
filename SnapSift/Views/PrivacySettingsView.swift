@@ -2,23 +2,73 @@ import SwiftUI
 import UserMessagingPlatform
 
 struct PrivacySettingsView: View {
+    
+    @Environment(AppState.self)
+    var appState: AppState
+    
     var body: some View {
-        NavigationStack {
-            Form {
-                Section("Privacy Settings") {
-                    if ConsentInformation.shared.privacyOptionsRequirementStatus == .required {
-                        Button("Privacy Choices") {
-                            showPrivacyOptions()
-                        }
+        VStack(spacing: 20) {
+            TitleCard()
+
+            VStack(alignment: .leading, spacing: 16) {
+                Text("Privacy Settings")
+                    .font(.title2)
+                    .fontWeight(.bold)
+
+                Text("SnapSift processes your photos locally on your device. Photos are never uploaded to SnapSift.")
+                    .font(.body)
+
+                Text("SnapSift uses Google AdMob to display advertisements. Advertising and privacy choices may vary by location.")
+                    .font(.body)
+
+                if ConsentInformation.shared.privacyOptionsRequirementStatus == .required {
+                    Button(action: {
+                        showPrivacyOptions()
+                    }) {
+                        Text("Privacy Choices")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(AppColors.aquamarine.color)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
                     }
+                    .padding(.horizontal)
                 }
 
-                Section("About") {
-                    Text("SnapSift - Organize your photo library")
-                    Text("Version 1.0")
+                Link(
+                    "Read Full Privacy Policy",
+                    destination: URL(string: "https://gioepic123.github.io/src/privacy.html")!
+                )
+                .frame(maxWidth: .infinity)
+                .padding()
+            }
+            .padding()
+            .background(Color.white)
+            .cornerRadius(12)
+            .padding(.horizontal)
+
+            VStack(spacing: 4) {
+                Text("SnapSift - Organize your photo library")
+                Text("Version 1.0")
+            }
+            .font(.footnote)
+            .foregroundColor(.secondary)
+            .padding()
+        }
+        .padding(.top)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(AppColors.spearMint.color)
+        .navigationTitle("Privacy")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    print("Tapped Back")
+                    appState.navigate(.home)
+                } label: {
+                    Image(systemName: "chevron.left")
                 }
             }
-            .navigationTitle("Privacy")
         }
     }
 
@@ -34,5 +84,7 @@ struct PrivacySettingsView: View {
 }
 
 #Preview {
-    PrivacySettingsView()
+    NavigationStack {
+        PrivacySettingsView()
+    }
 }

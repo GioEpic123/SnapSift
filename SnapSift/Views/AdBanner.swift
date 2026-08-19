@@ -28,14 +28,17 @@ private struct BannerViewRepresentable: UIViewRepresentable {
 
         banner.adUnitID = adUnitID
 
+        // Find the currently active iOS window
         if let windowScene = UIApplication.shared.connectedScenes
             .compactMap({ $0 as? UIWindowScene })
             .first,
+           // find its root UIKit view controller
            let rootViewController = windowScene.windows
             .first(where: { $0.isKeyWindow })?
             .rootViewController {
-            banner.rootViewController = rootViewController
-        }
+                // tell the AdMob banner that this is the view controller it belongs to
+                banner.rootViewController = rootViewController
+            }
 
         banner.load(Request())
 

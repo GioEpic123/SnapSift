@@ -44,6 +44,15 @@ struct SuccessScreen: View {
             }
             .padding(.horizontal)
         }
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    appState.navigate(.home)
+                } label: {
+                    Image(systemName: "chevron.left")
+                }
+            }
+        }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(AppColors.spearMint.color)

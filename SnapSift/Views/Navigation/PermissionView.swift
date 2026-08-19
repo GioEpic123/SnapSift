@@ -30,6 +30,7 @@ struct PermissionView: View {
                 permissionsPage()
             }
         }
+        // handle permissions change on app swithc
         .onChange(of: scenePhase) {
             appState.syncPermissionStatus()
         }

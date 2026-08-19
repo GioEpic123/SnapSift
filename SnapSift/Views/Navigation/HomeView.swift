@@ -51,11 +51,11 @@ struct HomeView: View {
                     }
                     .padding(.horizontal)
                 }
-
+                // Photo page entry point
                 Button(action: {
                     appState.syncPermissionsThenNavigate()
                 }) {
-                    Text("Start Swiping!")
+                    Text("Start Sifting")
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(AppColors.aquamarine.color)
@@ -63,19 +63,24 @@ struct HomeView: View {
                         .cornerRadius(10)
                 }
                 .padding(.horizontal)
+                .padding(.bottom)
+                
             }
         }
         .safeAreaInset(edge: .top) {
-            // Add a privacy settings button at the top
+            // Privacy Page Entry Point
             HStack {
                 Spacer()
                 Button("Privacy") {
-                    // This would navigate to privacy settings in a real implementation
-                    // For now, we'll just show a preview of what it would do
+                    appState.navigate(.privacy)
                 }
-                .padding()
+                .padding(8)
+                .background(AppColors.aquamarine.color.opacity(0.1))
+                .foregroundColor(AppColors.aquamarine.color)
+                .cornerRadius(10)
                 .foregroundColor(.secondary)
             }
+            .padding()
         }
     }
 }

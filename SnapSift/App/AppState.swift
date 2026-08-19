@@ -33,6 +33,7 @@ class AppState {
         case selectionGrid
         case success(count: Int)
         case home
+        case privacy
     }
 
     func navigate(_ newView: AppView){
@@ -113,12 +114,6 @@ class AppState {
                 }
             }
         }
-    }
-
-    // Navigation methods
-    func navigateToPrivacySettings() {
-        // This will be handled by the view that presents privacy settings
-        // We can add logic here to handle specific privacy-related navigation if needed
     }
 
     // Ads

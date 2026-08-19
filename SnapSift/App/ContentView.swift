@@ -19,6 +19,8 @@ struct ContentView: View {
                     HomeView()
                 case .permission:
                     PermissionView()
+                case .privacy:
+                    PrivacySettingsView()
                 case .photoStack:
                     PhotoStackView()
                 case .selectionGrid:
@@ -27,8 +29,9 @@ struct ContentView: View {
                     SuccessScreen(count: count)
                 }
             }
-
+            
             AdBanner(adUnitID: Secrets.testAdUnitID)
+                .background(AppColors.spearMint.color)
         }
     }
 }

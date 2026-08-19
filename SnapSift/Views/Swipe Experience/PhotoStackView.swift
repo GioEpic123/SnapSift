@@ -37,8 +37,16 @@ struct PhotoStackView: View {
             }
             
         }
-        // Date picker, 'Finish' button
+        // Back Button, Date picker
         .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    print("Tapped Back")
+                    appState.navigate(.home)
+                } label: {
+                    Image(systemName: "chevron.left")
+                }
+            }
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     showingDateFilter = true
@@ -51,9 +59,10 @@ struct PhotoStackView: View {
         .sheet(isPresented: $showingDateFilter) {
             DateFilterView().presentationDetents([.medium])
         }
-        .safeAreaInset(edge:.bottom){
+        // 'Finish' button
+        .safeAreaInset(edge: .bottom){
             Button(action: finishSelection) {
-                Text(appState.selectedPhotos.isEmpty ? "No photos selected!" : "Finish")
+                Text(appState.selectedPhotos.isEmpty ? "No photos selected!" : "Done")
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundColor(AppColors.aquamarine.color)

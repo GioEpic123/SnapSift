@@ -4,18 +4,18 @@ import GoogleMobileAds
 @main
 struct SnapSiftApp: App {
     @State private var appState = AppState()
-    @State private var consentManager = ConsentManager()
+    @State private var adsConsentManager = AdsConsentManager()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(appState)
-                .environment(consentManager)
+                .environment(adsConsentManager)
                 .preferredColorScheme(.light)
                 .task {
-                    await consentManager.requestConsent()
+                    await adsConsentManager.requestConsent()
 
-                    if consentManager.canRequestAds {
+                    if adsConsentManager.canRequestAds {
                         await MobileAds.shared.start()
                     }
                 }
